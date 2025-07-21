@@ -20,7 +20,7 @@ def timestamp():
     return datetime.now(tz).strftime('%Y-%m-%d %H:%M:%S')
 
 # Obtiene los registros en la base de datos
-@app.route('/gustavo', methods=['GET'])
+@app.route('/tareas', methods=['GET'])
 def get_tasks():
     conn = get_db_connection()
     tasks = conn.execute('SELECT * FROM gustavo ORDER BY created_at DESC').fetchall()
@@ -29,7 +29,7 @@ def get_tasks():
     return jsonify([dict(row) for row in tasks])
 
 # Ruta para crear una nueva tarea
-@app.route('/gustavo', methods=['POST'])
+@app.route('/tareas', methods=['POST'])
 def create_task():
     data = request.get_json()
     title = data.get('title')
@@ -44,7 +44,7 @@ def create_task():
     return jsonify({'message': '¡Tarea creada!'}), 201
 
 # Ruta para actualizar una tarea por ID
-@app.route('/gustavo/<int:task_id>', methods=['PUT'])
+@app.route('/tareas/<int:task_id>', methods=['PUT'])
 def update_task(task_id):
     data = request.get_json()
     title = data.get('title')
@@ -66,7 +66,7 @@ def update_task(task_id):
     return jsonify({'message': f'Tarea {task_id} actualizada'}), 200
 
 # Ruta para eliminar una tarea por ID
-@app.route('/gustavo/<int:task_id>', methods=['DELETE'])
+@app.route('/tareas/<int:task_id>', methods=['DELETE'])
 def delete_task(task_id):
     conn = get_db_connection()
     task = conn.execute('SELECT * FROM gustavo WHERE id = ?', (task_id,)).fetchone()

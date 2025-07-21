@@ -7,7 +7,7 @@ const Tareas = () => {
     const [description, setDescription] = useState("");
     const [tareas, setTareas] = useState([]);
 
-    const servidorUrl = 'http://localhost:5000/gustavo';
+    const servidorUrl = 'http://localhost:5000/tareas';
 
     useEffect(() => {
         obtenerTareas();
